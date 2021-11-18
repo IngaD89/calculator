@@ -1,0 +1,59 @@
+openapi: 3.0.2
+info:
+    title: New API
+    version: 1.0.0
+    description: A brand new API with no content.  Go nuts!
+    contact: {}
+paths:
+    /calculators:
+        summary: math operations
+        description: >-
+            The REST endpoint/path used to list and create zero or more `calculator` entities.  This path
+            contains a `GET` and `POST` operation to perform the list and create tasks, respectively.
+        get:
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/calculator'
+                    description: Successful response - returns an array of `calculator` entities.
+            operationId: getcalculators
+            summary: List All calculators
+            description: Gets a list of all `calculator` entities.
+        post:
+            requestBody:
+                description: A new `calculator` to be created.
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/calculator'
+                required: true
+            responses:
+                '201':
+                    description: Successful response.
+            operationId: createcalculator
+            summary: Create a calculator
+            description: Creates a new instance of a `calculator`.
+components:
+    schemas:
+        calculator:
+            title: Root Type for calculator
+            description: ''
+            type: object
+            properties:
+                x:
+                    format: int32
+                    type: integer
+                'y':
+                    format: int32
+                    type: integer
+                result:
+                    format: int32
+                    type: integer
+            example:
+                x: 1
+                'y': 2
+                result: 3
