@@ -13,7 +13,7 @@ public class App {
         vertx.deployVerticle(new CalculatorVerticle(),
                 new DeploymentOptions()
                         .setConfig(new JsonObject()
-                                .put("port", 8080))
+                                .put("port", 8081))
 
                 );
     }

@@ -21,61 +21,36 @@ public class CalculatorVerticle extends AbstractVerticle {
     public void start() {
         RouterBuilder.create(vertx, "src/main/resources/openapi-spec.yaml")
                 .onFailure(Throwable::printStackTrace)
+
                 .onSuccess(routerBuilder -> {
                     routerBuilder.getOpenAPI().getOpenAPI();
-                    System.out.println("prueba " + routerBuilder.getOpenAPI().getOpenAPI());
-                        RouterBuilderOptions builderOptions = new RouterBuilderOptions()
-                            .setMountResponseContentTypeHandler(true);
-                    routerBuilder.setOptions(builderOptions);
 
                     routerBuilder
-                            .operation("getcalculators")
+                            .operation("suma")
                             .handler(routingContext -> {
                                 RequestParameters params =
                                         routingContext.get(ValidationHandler.REQUEST_CONTEXT_KEY);
                                 RequestParameter body = params.body();
-                               // JsonObject jsonBody = routerBuilder.getOpenAPI().getOpenAPI();
+                                double x = body.getJsonObject().getDouble("x");
+                                double y = body.getJsonObject().getDouble("y");
+                                double result = x + y;
+
                                 HttpServerResponse response = routingContext.response();
                                 response
                                         .setStatusCode(200)
-                                        .putHeader("content-type", "application/json");
+                                        .putHeader("content-type", "application/json")
+                                        .end(new JsonObject().put("result", result).toBuffer());
+                                
                             });
 
-                    Router router = routerBuilder.createRouter();
-
-                    router
-                            .get("/calculators/getcalculators")
-                            .handler(this::getcalculators);
+                   Router router = routerBuilder.createRouter();
                     HttpServer server = vertx.createHttpServer();
                     server
                             .requestHandler(router)
                             .listen(config().getInteger("port"));
-                });
-    }
 
-    private void getcalculators(RoutingContext routingContext) {
-        Calculator calculator = new Calculator();
+                 });
 
-        JsonObject jsonObject = new JsonObject();
-
-        CalculatorService calculatorService = new CalculatorService();
-
-        double resultado;
-
-        calculator.setX(4.0);
-        calculator.setY(5.0);
-
-        resultado = calculatorService.sumar(calculator.getX(), calculator.getY());
-
-        calculator.setResult(resultado);
-
-        System.out.println(calculator);
-
-        jsonObject.put("suma", calculator);
-        routingContext
-                .response()
-                .putHeader("content-type", "application/json")
-                .end(jsonObject.encodePrettily());
     }
 }
 
