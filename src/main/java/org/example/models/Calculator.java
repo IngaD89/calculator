@@ -6,7 +6,8 @@ public class Calculator {
     private double y;
     private double result;
 
-    public Calculator(Long id, double x, double y, double result) {
+
+    public Calculator(Long id, double x, double y, double result, String operation) {
         this.id = id;
         this.x = x;
         this.y = y;

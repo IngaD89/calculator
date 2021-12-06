@@ -1,0 +1,142 @@
+openapi: 3.0.2
+info:
+  title: New API
+  version: 1.0.0
+  description: A brand new API with no content.  Go nuts!
+  contact: { }
+paths:
+  /histories:
+    summary: path to show list of operations.
+    description: entdpoint used to list of math operations.
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/history'
+          description: Successful response - returns an array of `history`.
+      operationId: getHistories
+      summary: List All histories
+      description: Endpoint used to get the list of math operations.
+
+  '/histories/{historyId}':
+    summary: Path used to show a single history.
+    description: The  endpoint/path used to get single math operation from history.
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/history'
+          description: Successful response - returns a single `history`.
+      operationId: getHistory
+      summary: get a single histry
+      description: Gets the details of a single instance of a `history`.
+
+  /suma:
+    summary: math operations
+    description: >-
+      endpoint used to do sum operations.
+    post:
+      requestBody:
+        description: A new `calculator` to be created.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/calculator'
+        required: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: number
+      operationId: suma
+      summary: sumar
+      description: Creates a new instance of a `calculator`.
+  /resta:
+    summary: math operations
+    description: >-
+     endpoint used to do subtract operations.
+
+    post:
+      requestBody:
+        description: A new `calculator` to be created.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/calculator'
+        required: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: number
+      operationId: resta
+      summary: restar
+      description: Restar dos numeros.
+components:
+  schemas:
+    calculator:
+      title: Root Type for calculator
+      description: ''
+      type: object
+      properties:
+        x:
+          format: double
+          type: number
+          example: 1.0
+
+        y:
+          format: double
+          type: number
+          example: 2.0
+
+    history:
+      title: Root Type for history
+      description: get history of math operations
+      type: object
+      properties:
+        id:
+          format: int64
+          type: integer
+          example: 1
+
+        operation:
+          type: string
+          example: "+"
+
+        x:
+          format: double
+          type: number
+          example: 2.0
+
+        y:
+          format: double
+          type: number
+          example: 3.0
+
+        result:
+          format: double
+          type: number
+          example: 5.0
+
+        dateTime:
+          format: 'date-time'
+          type: string
+          example: '2021-09-21T10:15:30'
+
+

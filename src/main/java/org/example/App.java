@@ -9,11 +9,12 @@ import org.example.verticle.CalculatorVerticle;
 
 public class App {
     public static void main(String[] args) {
+
         Vertx vertx = Vertx.vertx();
         vertx.deployVerticle(new CalculatorVerticle(),
                 new DeploymentOptions()
                         .setConfig(new JsonObject()
-                                .put("port", 8081))
+                                .put("port", 8090))
 
                 );
     }
