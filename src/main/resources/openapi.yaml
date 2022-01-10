@@ -22,9 +22,16 @@ paths:
       summary: List All histories
       description: Endpoint used to get the list of math operations.
 
-  '/histories/{historyId}':
+  '/histories/{id}':
     summary: Path used to show a single history.
     description: The  endpoint/path used to get single math operation from history.
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: The id of one math operation
+        schema:
+          type: number
     get:
       responses:
         '200':
@@ -37,6 +44,7 @@ paths:
       summary: get a single histry
       description: Gets the details of a single instance of a `history`.
 
+
   /suma:
     summary: math operations
     description: >-
@@ -47,7 +55,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/calculator'
+              $ref: '#/components/schemas/calculatorSuma'
         required: true
       responses:
         '200':
@@ -73,7 +81,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/calculator'
+              $ref: '#/components/schemas/calculatorResta'
         required: true
       responses:
         '200':
@@ -90,25 +98,55 @@ paths:
       description: Restar dos numeros.
 components:
   schemas:
-    calculator:
-      title: Root Type for calculator
+    number:
+      format: double
+      type: number
+      example: 1.0
+    calculatorResta:
+      title: Root Type for calculatorResta
       description: ''
       type: object
+      required:
+        - x
+        - y
       properties:
         x:
-          format: double
-          type: number
-          example: 1.0
+          $ref: '#/components/schemas/number'
 
         y:
-          format: double
-          type: number
-          example: 2.0
+          $ref: '#/components/schemas/number'
+
+        operation:
+          type: string
+          example: "-"
+
+    calculatorSuma:
+      title: Root Type for calculatorSuma
+      description: ''
+      type: object
+      required:
+        - x
+        - y
+      properties:
+        x:
+          $ref: '#/components/schemas/number'
+
+        y:
+          $ref: '#/components/schemas/number'
+
+        operation:
+          type: string
+          example: "+"
 
     history:
       title: Root Type for history
       description: get history of math operations
       type: object
+      required:
+        - id
+        - operation
+        - result
+        - dateTime
       properties:
         id:
           format: int64
@@ -117,26 +155,22 @@ components:
 
         operation:
           type: string
-          example: "+"
+          enum:
+            - "+"
+            - "-"
 
         x:
-          format: double
-          type: number
-          example: 2.0
+         $ref: '#/components/schemas/number'
+
 
         y:
-          format: double
-          type: number
-          example: 3.0
+          $ref: '#/components/schemas/number'
+
 
         result:
-          format: double
-          type: number
-          example: 5.0
+          $ref: '#/components/schemas/number'
 
         dateTime:
-          format: 'date-time'
+          format: date-time
           type: string
-          example: '2021-09-21T10:15:30'
-
-
+          example: 2021-09-21T10:15:30

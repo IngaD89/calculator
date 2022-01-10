@@ -45,6 +45,7 @@
             <artifactId>vertx-sql-client-templates</artifactId>
             <version>${vertx.version}</version>
         </dependency>
+
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-config</artifactId>
@@ -55,6 +56,13 @@
             <groupId>org.testcontainers</groupId>
             <artifactId>postgresql</artifactId>
             <version>1.16.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.ongres.scram</groupId>
+            <artifactId>client</artifactId>
+            <version>2.1</version>
+            <optional>true</optional>
         </dependency>
 
         <dependency>
@@ -69,6 +77,11 @@
             <artifactId>junit</artifactId>
             <version>4.13.2</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.vertx</groupId>
+            <artifactId>vertx-codegen</artifactId>
+            <version>4.2.1</version>
         </dependency>
 
     </dependencies>

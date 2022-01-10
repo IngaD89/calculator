@@ -8,6 +8,7 @@ import org.example.verticle.CalculatorVerticle;
 
 
 public class App {
+
     public static void main(String[] args) {
 
         Vertx vertx = Vertx.vertx();
@@ -18,4 +19,5 @@ public class App {
 
                 );
     }
+
 }

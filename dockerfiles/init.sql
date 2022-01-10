@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS historydb;
 CREATE TABLE historydb (
-    id int PRIMARY KEY,
+    id serial  PRIMARY KEY ,
     operation varchar(255) NOT NULL,
     x DOUBLE PRECISION NOT NULL,
     y DOUBLE PRECISION NOT NULL,
